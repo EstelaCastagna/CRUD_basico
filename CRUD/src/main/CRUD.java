@@ -1,15 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package main;
 
+import Classes.Pessoas;
+import Connection.DatabaseConnection;
 import Telas.telaListagem;
+import java.util.ArrayList;
 
-/**
- *
- * @author escastagna
- */
+
 public class CRUD {
 
     /**
@@ -17,9 +13,20 @@ public class CRUD {
      */
     public static void main(String[] args) {
         
-        telaListagem tl = new telaListagem();
-        tl.setVisible(true);
-        
+        DatabaseConnection dbc = new DatabaseConnection();
+              //  Pessoas pessoinha = new Pessoas("Sugiroki Mimami",30,"88516269519");
+               // dbc.create(pessoinha);
+        //telaListagem tl = new telaListagem();
+       // tl.setVisible(true);
+       
+       ArrayList<Pessoas> pessoasCadastradas = new ArrayList();
+       pessoasCadastradas = dbc.readAll();
+        for (int i = 0; i < pessoasCadastradas.size(); i++) {
+            System.out.println(pessoasCadastradas.get(i).mostrarDados()+"\n");
+        }
+        Pessoas pessoinha = new Pessoas("Sugiroki Mimami Noku",27,"29516269519");
+        dbc.update(pessoinha, 10);
+        dbc.delete(5);
     }
     
 }
