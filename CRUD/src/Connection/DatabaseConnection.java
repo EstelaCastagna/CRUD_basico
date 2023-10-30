@@ -71,7 +71,7 @@ public class DatabaseConnection {
             // Itera sobre o resultado.
             while (rs.next()) {
                 // Adiciona cada pessoa à lista.
-                pessoas.add(new Pessoas(rs.getString("nome"), rs.getInt("idade"),rs.getString("CPF")));
+                pessoas.add(new Pessoas(rs.getInt("id_pessoa"),rs.getString("nome"), rs.getInt("idade"),rs.getString("CPF")));
             }
         } catch (SQLException e) {
             // Lança uma exceção em caso de erro.
@@ -95,7 +95,7 @@ public class DatabaseConnection {
             stmt.setString(1, pessoa.getNome());
             stmt.setInt(2, pessoa.getIdade());
             stmt.setString(3, pessoa.getCPF());
-            stmt.setInt(4,id);
+            stmt.setInt(4,pessoa.getId());
             // Executa a query.
             stmt.execute();
         } catch (SQLException e) {

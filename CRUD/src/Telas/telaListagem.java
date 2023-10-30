@@ -1,34 +1,37 @@
 package Telas;
 
 import Classes.Pessoas;
+import Connection.DatabaseConnection;
 import java.util.ArrayList;
 
 
 public class telaListagem extends javax.swing.JFrame {
-
-    private ArrayList<Pessoas> listaPessoas= new ArrayList();
+    
+    DatabaseConnection dbc = new DatabaseConnection();
+    private ArrayList<Pessoas> pessoasCadastradas = new ArrayList();
     
     public telaListagem() {
         initComponents();
+        listarPessoas();
     }
     
     public void listarPessoas(){
         txtListagem.setText("");
-        for (int i = 0; i < getListaPessoas().size(); i++) {
-            txtListagem.setText(txtListagem.getText()+"| ID: "+(i)+" | "+getListaPessoas().get(i).mostrarDados()+"\n");
+        pessoasCadastradas = dbc.readAll();
+        for (int i = 0; i < pessoasCadastradas.size(); i++) {
+            txtListagem.setText(txtListagem.getText() +  pessoasCadastradas.get(i).mostrarDados()+"\n");
         }
         
     }
     
     public void cadastrarPessoa(Pessoas pessoa){
-        getListaPessoas().add(pessoa);
+        dbc.create(pessoa);
+        
     }
     
     public void atualizarPessoa(int id, String nNome, int nIdade, String nCPF){
-        
-                getListaPessoas().get(id).setNome(nNome);
-                getListaPessoas().get(id).setIdade(nIdade);
-                getListaPessoas().get(id).setCPF(nCPF);
+                Pessoas pessoa = new Pessoas(id,nNome,nIdade,nCPF);
+                dbc.update(pessoa,id);
             }
         
     
@@ -143,7 +146,7 @@ public class telaListagem extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        listaPessoas.remove(Integer.parseInt(tfIDexcluir.getText()));
+        dbc.delete(Integer.parseInt(tfIDexcluir.getText()));
         listarPessoas();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -191,17 +194,14 @@ public class telaListagem extends javax.swing.JFrame {
     private javax.swing.JTextArea txtListagem;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * @return the listaPessoas
-     */
-    public ArrayList<Pessoas> getListaPessoas() {
-        return listaPessoas;
+    public ArrayList<Pessoas> getPessoasCadastradas() {
+        return pessoasCadastradas;
     }
 
-    /**
-     * @param listaPessoas the listaPessoas to set
-     */
-    public void setListaPessoas(ArrayList<Pessoas> listaPessoas) {
-        this.listaPessoas = listaPessoas;
+    public void setPessoasCadastradas(ArrayList<Pessoas> pessoasCadastradas) {
+        this.pessoasCadastradas = pessoasCadastradas;
     }
+
+   
+   
 }

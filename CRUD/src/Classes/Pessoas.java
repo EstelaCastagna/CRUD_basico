@@ -6,13 +6,15 @@ public class Pessoas {
     private String nome;
     private int idade;
     private String CPF;
+    private int id;
 
     public Pessoas() {
     }
     
     
 
-    public Pessoas(String nome, int idade, String CPF) {
+    public Pessoas(int id,String nome, int idade, String CPF) {
+        this.id=id;
         this.nome = nome;
         this.idade = idade;
         this.CPF = CPF;
@@ -41,9 +43,17 @@ public class Pessoas {
     public void setIdade(int idade) {
         this.idade = idade;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
     public String mostrarDados(){
-        return "Nome: "+getNome()+" | Idade: "+getIdade()+" | CPF: "+getCPF()+" |\n";
+        return"ID:"+getId()+" | "+"Nome: "+getNome()+" | Idade: "+getIdade()+" | CPF: "+getCPF()+" |\n";
     }
            
     
